@@ -1,6 +1,6 @@
 <?php
 
-/* core/themes/classy/templates/misc/status-messages.html.twig */
+/* @classy/misc/status-messages.html.twig */
 class __TwigTemplate_f05e6449adb43f3377526bd4a35bb2eb6221209de6f1cd946eff875daae56093 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
@@ -131,7 +131,7 @@ $context["type"]));
 
     public function getTemplateName()
     {
-        return "core/themes/classy/templates/misc/status-messages.html.twig";
+        return "@classy/misc/status-messages.html.twig";
     }
 
     public function isTraitable()

@@ -1,0 +1,18 @@
+name: Snb_alpha
+type: theme
+base theme: classy
+Description: "Shop n buddies general theme"
+package: custom
+core: 8.x
+
+libraries: 
+  - snb_alpha/global-styling
+  - snb_alpha/page-specific-styling
+  - snb_alpha/base-js
+
+regions:
+  headline: headline
+  header: header
+  content: content
+  sidebar: sidebar
+  footer: Footer 

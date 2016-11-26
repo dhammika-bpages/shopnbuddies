@@ -1,0 +1,19 @@
+global-styling:
+  version: 1.x
+  css:
+    theme:
+      includes/bootstrap/css/bootstrap.css: {}
+      css/style.css: {}
+page-specific-styling:
+  version: 1.x
+  css:
+    theme:
+      css/pages-style.css: {}
+base-js:
+  version: 1.x
+  js:
+    js/snb_alpha_general.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/jquery.once

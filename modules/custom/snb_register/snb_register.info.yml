@@ -1,0 +1,5 @@
+name: SnB Register
+description: 'test module'
+package: Shop-n-buddies
+type: module
+core: 8.x

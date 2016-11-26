@@ -1,0 +1,6 @@
+snb_register.emailreg:
+  path: '/signup'
+  defaults: 
+    _controller: '\Drupal\snb_register\Controller\SignupController::validateEmail'
+  requirements:
+    _permission: 'access content'
