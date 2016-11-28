@@ -1,0 +1,3 @@
+services:
+  snb_register.emailpingenerator:
+    class: Drupal\snb_register\Service\EmailpinGenerator
