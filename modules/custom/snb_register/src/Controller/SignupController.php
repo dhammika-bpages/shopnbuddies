@@ -13,6 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\snb_register\Form\EmailSignupForm;
 //custom services
 use Drupal\snb_register\Service\EmailpinGenerator;
+use Drupal\snb_register\Service\EmailSender;
 
 /*
 Raw response
@@ -62,10 +63,11 @@ service container
 class SignupController extends ControllerBase {
 
     private $sendEmailPin;
-    public function __construct(EmailpinGenerator $sendEmailPin){
+    public function __construct(EmailSender $sendEmailPin){
         $this->sendEmailPin = $sendEmailPin;
     }
     public static function create(ContainerInterface $container){
+        // $srvReturn = $container->get('snb_register.emailpingenerator');
         $srvReturn = $container->get('snb_register.emailpingenerator');
         return new static ($srvReturn);
     }
@@ -75,7 +77,8 @@ class SignupController extends ControllerBase {
         // return $emailpinGnerator->getPin();
         // $service = \Drupal::service('snb_register.emailpingenerator');
         // return [$service;
-        $markupFromService = $this->sendEmailPin->getPin();
+        //$markupFromService = $this->sendEmailPin->getPin();
+        $markupFromService = $this->sendEmailPin->custom_function_name();
         return $markupFromService;
     }
 }
