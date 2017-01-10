@@ -1,1 +1,54 @@
 <?php
+use Drupal\Component\Utility\SafeMarkup;
+/**
+* Implements hook_mail().
+*/
+function snb_register_mail($key, &$message, $params) {
+	$options = array(
+		'langcode' => $message['langcode'],
+	);
+
+	switch ($key) {
+	case 'node_insert':
+		$message['from'] = \Drupal::config('system.site')->get('mail');
+		$message['subject'] = t($params['title'], $options);
+		$message['body'][] = SafeMarkup::checkPlain($params['message']);
+	break;
+	}
+	// drupal_set_message('<pre>'. print_r($message, true) .'</pre>');
+
+}
+
+/**
+* Implements hook_entity_insert().
+*/
+// function MYMODULE_entity_insert(Drupal\Core\Entity\EntityInterface $entity) {
+
+// if ($entity->getEntityTypeId() !== 'node' || ($entity->getEntityTypeId() === 'node' && $entity->bundle() !== 'CONTENT_TYPE')) {
+// return;
+// }
+
+// $mailManager = \Drupal::service('plugin.manager.mail');
+
+// $module = 'MYMODULE';
+// $key = 'node_insert_alert';
+// $to = 'To mail '; // email to be sent to this Email ID
+
+// $params['message'] = "Message";
+
+// $params['node_title'] = $entity->label();
+// $langcode = \Drupal::currentUser()->getPreferredLangcode();
+// $send = true;
+
+// $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+// if ($result['result'] !== true) {
+// $message = t('There was a problem sending alert email notification to @email for creating ticket @id.', array('@email' => $to, '@id' => $entity->id()));
+// //drupal dblog
+// \Drupal::logger('MYMODULE alert')->error($message);
+// return;
+// }
+
+// $message = t('An email notification has been sent to @email for creating node @id.', array('@email' => $to, '@id' => $entity->id()));
+// //drupal dblog
+// \Drupal::logger('MYMODULE alert')->notice($message);
+// }

@@ -71,14 +71,32 @@ class SignupController extends ControllerBase {
         $srvReturn = $container->get('snb_register.emailpingenerator');
         return new static ($srvReturn);
     }
-    public function validateEmail() {
+
+
+    public function getPin() {
+        $emailpinGnerator = new EmailpinGenerator();
+        return $emailpinGnerator->requestPIN();
+    }
+
+    public function buildEmailTemplate($genpin){
+        $emailBody = "You have mail from SnB\n\n\n"."your PIN is ". "<h1>".$genpin."</h1>";
+        return $emailBody;
+    }
+
+    public function sendPinToEmail() {
 //         //// use service
         // $emailpinGnerator = new EmailpinGenerator();
         // return $emailpinGnerator->getPin();
         // $service = \Drupal::service('snb_register.emailpingenerator');
         // return [$service;
         //$markupFromService = $this->sendEmailPin->getPin();
-        $markupFromService = $this->sendEmailPin->custom_function_name();
-        return $markupFromService;
+
+        $generatedPin = $this->getPin();
+        $markupWithPIN = $this->buildEmailTemplate($generatedPin);
+        //// sends the email
+        $response = $this->sendEmailPin->sendCustomBuildMail($markupWithPIN);
+        // return "Email with PIN is sent."
+        // \Drupal::logger('snb_register')->debug($response);
+
     }
 }

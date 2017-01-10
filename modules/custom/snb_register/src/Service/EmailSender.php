@@ -9,17 +9,19 @@ namespace Drupal\snb_register\Service;
 class EmailSender{
 
 
-	public function custom_function_name() {
+	public function sendCustomBuildMail($msgBody) {
 		$mailManager = \Drupal::service('plugin.manager.mail');
-		$module = 'module-name';
+		$module = 'snb_register';
 		$key = 'node_insert'; // Replace with Your key
 		$to = 'dbjaya1986@gmail.com';//\Drupal::currentUser()->getEmail();
-		$params['message'] = "You have mail from SnB";
+		$from = \Drupal::currentUser()->getEmail();
+		// 'reply-to' => $reply,
+		$params['message'] = $msgBody;
 		$params['title'] = "Shop'N'Buddies";
 		$langcode = \Drupal::currentUser()->getPreferredLangcode();
 		$send = true;
 
-		$result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+		$result = $mailManager->mail($module, $key, $to, $langcode, $params, $from, $send);
 		// if ($result['result'] != true) {
 		// $message = t('There was a problem sending your email notification to @email.', array('@email' => $to));
 		// drupal_set_message($message, 'error');
@@ -40,9 +42,9 @@ class EmailSender{
 		          ];
 		}
 
-		$message = t('An email notification has been sent to @email ', array('@email' => $to));
-		drupal_set_message($message);
-		\Drupal::logger('mail-log')->notice($message);
+		// $message = t('An email notification has been sent to '. $to);
+		// drupal_set_message($message);
+		// \Drupal::logger('mail-log')->notice($message);
 	}
 
 }

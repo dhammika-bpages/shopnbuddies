@@ -3,6 +3,8 @@ namespace Drupal\snb_register\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use \Drupal\snb_register\Controller\SignupController;
+use Drupal\snb_register\Service\EmailSender;
 
 class EmailSignupForm extends FormBase {
 	public function getFormId() {
@@ -18,7 +20,7 @@ class EmailSignupForm extends FormBase {
 	    $form['actions']['#type'] = 'actions';
 	    $form['actions']['submit'] = array(
 	      '#type' => 'submit',
-	      '#value' => $this->t('Save'),
+	      '#value' => $this->t('Signup'),
 	      '#button_type' => 'primary',
 	    );
 	    return $form;
@@ -26,16 +28,27 @@ class EmailSignupForm extends FormBase {
 
     public function validateForm(array &$form, FormStateInterface $form_state) {
       if (empty($form_state->getValue('signup_email')) == TRUE) {
-        $form_state->setErrorByName('signup_email', $this->t('Enter email.'));
+        $form_state->setErrorByName('signup_email', $this->t('You need to enter an email.'));
+      } else {
+      	 $isvalid = \Drupal::service('email.validator')->isValid($form_state->getValue('signup_email'));
+      	 if($isvalid == FALSE){
+      	 	$form_state->setErrorByName('signup_email', $this->t('Please enter a valid email.'));
+      	 }
       }
     }
 
 	public function submitForm(array &$form, FormStateInterface $form_state) {
-	// drupal_set_message($this->t('@can_name ,Your application is being submitted!', array('@can_name' => $form_state->getValue('candidate_name'))));
-		foreach ($form_state->getValues() as $key => $value) {
-		  drupal_set_message($key . ': ' . $value);
-		}
+		// foreach ($form_state->getValues() as $key => $value) {
+		// } 
+
+		/* this will sends the email */
+		  // $emailSenderInstance = new EmailSender;
+		  // $emailSender = new SignupController($emailSenderInstance);
+		  // drupal_set_message($emailSender->validateEmail());
+
+		$emailSenderInstance = new EmailSender;
+		$emailSignup = new SignupController($emailSenderInstance);
+		$response = $emailSignup->sendPinToEmail();
+		// drupal_set_message($response);
 	}
 }
-
-// 49 29 69 68 34 J
