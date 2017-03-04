@@ -1,0 +1,5 @@
+name: SnB Whishlist
+description: 'Whishlist features of the app'
+package: Shop-n-buddies
+type: module
+core: 8.x

@@ -1,0 +1,27 @@
+# snb_user.signupform:
+#   path: '/createtable/emailtopin'
+#   defaults:
+#     _controller: '\Drupal\snb_user\Controller\SignupController::createEmailtoPinTBL'
+#   requirements:
+#     _permission: 'access content'
+
+snb_user.signupform:
+  path: '/signup'
+  defaults:
+    _form: '\Drupal\snb_user\Form\EmailSignupForm'
+  requirements:
+    _permission: 'access content'
+
+# snb_user.emailreg:
+#   path: '/signup'
+#   defaults: 
+#     _controller: '\Drupal\snb_user\Controller\SignupController::validateEmail'
+#   requirements:
+#     _permission: 'access content'
+
+# snb_user.signupform:
+#   path: '/form'
+#   defaults: 
+#     _form: '\Drupal\snb_user\Form\EmailSignupForm'
+#   requirements:
+#     _permission: 'access content'

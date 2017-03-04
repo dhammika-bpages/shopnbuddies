@@ -1,0 +1,5 @@
+name: SnB Dashboard
+description: 'Handles the main dashboard of the app'
+package: Shop-n-buddies
+type: module
+core: 8.x

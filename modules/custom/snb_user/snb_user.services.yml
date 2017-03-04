@@ -1,0 +1,4 @@
+services:
+  snb_user.emailpingenerator:
+    # class: Drupal\snb_user\Service\EmailpinGenerator
+    class: Drupal\snb_user\Service\EmailSender

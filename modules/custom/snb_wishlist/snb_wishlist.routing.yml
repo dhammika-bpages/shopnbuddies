@@ -1,0 +1,12 @@
+snb_user.wishlistprocess:
+  path: '/whishlist'
+  defaults:
+    _controller: '\Drupal\snb_wishlist\Controller\WishlistController::generateWishlistProcessPage'
+  requirements:
+    _permission: 'access content'
+snb_user.createwhishlistitemform:
+  path: '/whishlist/additem'
+  defaults:
+    _form: '\Drupal\snb_wishlist\Form\CreateWhishListItemForm'
+  requirements:
+    _permission: 'access content'

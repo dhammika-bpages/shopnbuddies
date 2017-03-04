@@ -1,0 +1,151 @@
+<?php
+use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Core\Url;
+
+use Drupal\snb_user\Controller\SignupController;
+use Drupal\snb_user\Service\EmailSender;
+/**
+* Implements hook_mail().
+*/
+function snb_user_mail($key, &$message, $params) {
+	$options = array(
+		'langcode' => $message['langcode'],
+	);
+
+	switch ($key) {
+	case 'node_insert':
+		$message['from'] = \Drupal::config('system.site')->get('mail');
+		$message['subject'] = t($params['title'], $options);
+		$message['body'][] = SafeMarkup::checkPlain($params['message']);
+	break;
+	}
+	// drupal_set_message('<pre>'. print_r($message, true) .'</pre>');
+
+}
+
+/**
+* Implements hook_entity_insert().
+*/
+// function MYMODULE_entity_insert(Drupal\Core\Entity\EntityInterface $entity) {
+
+// if ($entity->getEntityTypeId() !== 'node' || ($entity->getEntityTypeId() === 'node' && $entity->bundle() !== 'CONTENT_TYPE')) {
+// return;
+// }
+
+// $mailManager = \Drupal::service('plugin.manager.mail');
+
+// $module = 'MYMODULE';
+// $key = 'node_insert_alert';
+// $to = 'To mail '; // email to be sent to this Email ID
+
+// $params['message'] = "Message";
+
+// $params['node_title'] = $entity->label();
+// $langcode = \Drupal::currentUser()->getPreferredLangcode();
+// $send = true;
+
+// $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+// if ($result['result'] !== true) {
+// $message = t('There was a problem sending alert email notification to @email for creating ticket @id.', array('@email' => $to, '@id' => $entity->id()));
+// //drupal dblog
+// \Drupal::logger('MYMODULE alert')->error($message);
+// return;
+// }
+
+// $message = t('An email notification has been sent to @email for creating node @id.', array('@email' => $to, '@id' => $entity->id()));
+// //drupal dblog
+// \Drupal::logger('MYMODULE alert')->notice($message);
+// }
+
+
+/**
+* 
+*/
+function snb_user_create_email_to_pin_table($key, &$message, $params) {
+
+	// drupal_set_message('<pre>'. print_r($message, true) .'</pre>');
+
+}
+
+function snb_user_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+	// drupal_set_message('<pre>'. print_r($form_id, true) .'</pre>');
+
+	switch ($form_id) {
+	case 'user_login_form':
+	// $form['actions']['submit']['#submit'][] = "snb_user_special_signup_submit";
+		// $form['#validate'][] = ;
+		array_unshift($form['#validate'],'snb_user_validate_raw');
+		// drupal_set_message('<pre>'. print_r($form, true) .'</pre>')
+		// \Drupal::logger('snb_user')->debug($form);
+	break;
+	}
+
+}
+
+function snb_user_validate_raw($form_state){
+	$emailSenderInstance = new EmailSender;
+	$controller = new SignupController($emailSenderInstance);
+	$record = $controller->readEmailtoPin($form_state['name']['#value']);
+
+	// ksm($form_state);
+	// ksm($record);
+
+	if($record != FALSE){
+		if($form_state['name']['#value'] == $record['email']){
+			if($form_state['pass']['#value'] == $record['PIN']){
+				// $url = Url::fromUri('internal:/user/register');
+				// $url = Url::fromInternalUri('user/register');
+				// return new RedirectResponse($url);
+				// return new RedirectResponse(\Drupal::url('user.register'));
+				    // $url = \Drupal\Core\Url::fromRoute('user.register');
+								// Drupal::destination();
+				    // ksm(Drupal::destination());
+				    // $form_state->clearErrors();
+				    // $form_state['#submit'] = 'snb_user_special_signup_submit';
+				    // $form_state->setRedirectUrl($url);
+				    // return true;
+
+				// return $controller->redirect('user.register');
+				// return new RedirectResponse('/user/register');
+		      	$user = \Drupal\user\Entity\User::create();
+
+		  	  	//Mandatory settings
+		      	$user->setPassword($form_state['pass']['#value']);
+		      	$user->enforceIsNew();
+		      	$user->setEmail($form_state['name']['#value']);
+		      	$user->setUsername($form_state['name']['#value']); //This username must be unique and accept only a-Z,0-9, - _ @ .
+		      	// $user->addRole('');
+		      	$user->activate();
+		  	  	//Save user
+		      	$res = $user->save();
+
+				$emailSenderInstance = new EmailSender;
+				$controller = new SignupController($emailSenderInstance);
+				$controller->removeReurnedEmailtoPin($form_state['name']['#value']);
+
+				$newuser = Drupal\user\Entity\User::load($user->id());
+				user_login_finalize($newuser);
+
+			}else{
+				// ksm("12");
+				//return false;
+			}
+		} else {
+			// ksm("hhh");
+			//return false;
+		}
+	} else {
+
+	}
+}
+
+
+/**
+ * Contact form submit handler
+ * @param $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
+function snb_user_special_signup_submit() {
+	ksm("submitting");
+  // $form_state->setRedirect('contact.site_page');
+}

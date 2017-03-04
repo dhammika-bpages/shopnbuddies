@@ -1,0 +1,6 @@
+snb_user.dashboard:
+  path: '/dashboard'
+  defaults:
+    _form: '\Drupal\snb_dashboard\Form\IntentionForm'
+  requirements:
+    _permission: 'access content'
