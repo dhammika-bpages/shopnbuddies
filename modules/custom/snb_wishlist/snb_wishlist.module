@@ -4,3 +4,64 @@ use Drupal\Core\Url;
 
 use Drupal\snb_wishlist\Controller\SignupController;
 use Drupal\snb_wishlist\Service\EmailSender;
+
+
+function snb_wishlist_theme($existing, $type, $theme, $path) {
+  return array(
+    'chosen_wishes' => array(
+      'variables' => array( 'titlesArray' => NULL,
+      	        			'nidArray' => NULL,
+        					'imagesArray' => NULL,
+        					'ownerUID' => NULL,
+        					'wishOwnerNameArray' => NULL,
+        					'timeExpireArray' => NULL 
+        				),
+      ),
+
+    'wish_teaser' => array(
+      'variables' => array( 
+                  'title' => NULL,
+                  'time_remaining' => NULL,
+                  'description' => NULL,
+                  'value' => NULL,
+                  'recompense' => NULL 
+                ),
+      ),
+
+  );
+}
+
+function snb_wishlist_preprocess_html(&$variables) {
+    //$variables['modeIsREST'] = $_GET['mode'];
+  $themeName = \Drupal::service('theme.manager')->getActiveTheme()->getName();
+
+  if( $themeName == "snb_alpha"){
+    $mode = \Drupal::request()->query->get('mode');
+    if($mode == 'rest'){
+      $variables['modeIsREST'] = $mode;
+      //\Drupal::logger('wishlist _html')->debug('<pre>' . print_r( $mode, true) . '</pre>');
+    } else {
+      $variables['modeIsREST'] = "none";
+    }
+  }
+
+}
+
+function snb_wishlist_preprocess_page(&$variables) {
+    //$variables['modeIsREST'] = $_GET['mode'];  
+  // $themeName = \Drupal::service('theme.manager')->getActiveTheme()->getName();
+    // $mode = \Drupal::request()->query->get('mode');  
+    //\Drupal::logger('wishlist _page')->debug('<pre>' . print_r( $_GET, true) . '</pre>'); 
+}
+
+function snb_wishlist_preprocess_region(&$variables){
+
+}
+
+function snb_wishlist_preprocess_block(&$variables){
+ 
+}
+
+function snb_wishlist_preprocess_node(&$variables){
+
+}

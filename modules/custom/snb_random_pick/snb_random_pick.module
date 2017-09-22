@@ -1,0 +1,16 @@
+<?php
+use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Core\Url;
+
+use Drupal\snb_random_pick\Service\PickRandomFromDB;
+use Drupal\snb_random_pick\Service\DropRandomPick;
+
+// function snb_random_pick_user_login($account){
+// 	$randompic = new PickRandomFromDB;
+// 	$randompic->getRandomWish();
+// }
+
+// function snb_random_pick_cron(){
+// 	$dropRandomPick = new DropRandomPick;
+// 	$dropRandomPick->selectExpiredWshes();
+// }

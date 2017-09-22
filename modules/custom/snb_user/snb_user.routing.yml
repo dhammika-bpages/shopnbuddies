@@ -12,6 +12,13 @@ snb_user.signupform:
   requirements:
     _permission: 'access content'
 
+snb_user.wishownersummery:
+  path: '/ownersummery/{userUID}'
+  defaults:
+    _controller: '\Drupal\snb_user\Service\WishOwnerDetails::loadUserObject'
+  requirements:
+    _permission: 'access content'    
+
 # snb_user.emailreg:
 #   path: '/signup'
 #   defaults: 

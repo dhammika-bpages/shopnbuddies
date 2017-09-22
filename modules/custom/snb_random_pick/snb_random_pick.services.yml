@@ -1,0 +1,3 @@
+services:
+  snb_wishlist.pickawish:
+    class: Drupal\snb_wishlist\Service\PickRandomFromDB

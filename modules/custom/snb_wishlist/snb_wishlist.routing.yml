@@ -1,12 +1,42 @@
-snb_user.wishlistprocess:
+snb_wishlist.wishlistprocess:
   path: '/whishlist'
   defaults:
     _controller: '\Drupal\snb_wishlist\Controller\WishlistController::generateWishlistProcessPage'
   requirements:
     _permission: 'access content'
-snb_user.createwhishlistitemform:
+# snb_wishlist.createwhishlistitemform:
+  # path: '/whishlist/additem'
+  # defaults:
+  #   _form: '\Drupal\snb_wishlist\Form\CreateWhishListItemForm'
+  # requirements:
+  #   _permission: 'access content'
+snb_wishlist.createwhishlistitemform:
   path: '/whishlist/additem'
   defaults:
-    _form: '\Drupal\snb_wishlist\Form\CreateWhishListItemForm'
+    _controller: '\Drupal\snb_wishlist\Controller\WishlistController::renderAddWishForm'
+  requirements:
+    _permission: 'access content'
+snb_wishlist.createwhishlistitemformREST:
+  path: '/rest/whishlist/additem'  
+  defaults:
+    _controller: '\Drupal\snb_wishlist\Controller\WishlistController::renderAddWishForm'
+  requirements:
+    _permission: 'access content'    
+snb_wishlist.wisheschosen:
+  path: '/giveaway'
+  defaults:
+    _controller: '\Drupal\snb_wishlist\Controller\WishlistController::generateChosenWishesForGiveaways'
+  requirements:
+    _permission: 'access content'
+snb_wishlist.wishTaser:
+  path: '/wish/{wishID}'
+  defaults:
+    _controller: '\Drupal\snb_wishlist\Controller\WishlistController::generateTeaserWish'
+  requirements:
+    _permission: 'access content'
+snb_wishlist.deemwish:
+  path: '/wish/deem'
+  defaults:
+    _controller: '\Drupal\snb_wishlist\Controller\WishlistController::generateTeaserWish'
   requirements:
     _permission: 'access content'

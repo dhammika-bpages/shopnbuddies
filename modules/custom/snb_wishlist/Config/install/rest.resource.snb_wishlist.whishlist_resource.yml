@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - basic_auth
+id: snb_whishlist.whishlist_resource
+plugin_id: 'whishlist_resource'
+granularity: resource
+configuration:
+  methods:
+    - GET
+  formats:
+    - hal_json
+    - xml
+    - json
+  authentication:
+    - basic_auth

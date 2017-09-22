@@ -24,6 +24,13 @@ function snb_user_mail($key, &$message, $params) {
 }
 
 /**
+ * Implements hook_user_login().
+ */
+function snb_user_user_login(\Drupal\user\UserInterface $account) {
+
+}
+
+/**
 * Implements hook_entity_insert().
 */
 // function MYMODULE_entity_insert(Drupal\Core\Entity\EntityInterface $entity) {
@@ -148,4 +155,19 @@ function snb_user_validate_raw($form_state){
 function snb_user_special_signup_submit() {
 	ksm("submitting");
   // $form_state->setRedirect('contact.site_page');
+}
+
+
+function snb_user_theme($existing, $type, $theme, $path) {
+  return array(
+    'owner_teaser' => array(
+      'variables' => array( 
+		            'name' => NULL,
+		            'profilePicture' => NULL,
+		            'city' => NULL,
+		            'sexualAttraction' => NULL,
+		            'biologicalSex' => NULL, 
+		            ),
+      ),
+  );
 }

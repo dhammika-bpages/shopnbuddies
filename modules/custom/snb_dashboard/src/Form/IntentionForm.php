@@ -18,7 +18,7 @@ class IntentionForm extends FormBase {
 	    );
 
 	    $form['actions'] = array(
-	      '#markup' => "<div><a href='google.com'>Give away</a></div>",
+	      '#markup' => "<div><a href='/giveaway'>Support</a></div>",
 	    );
 
 	    $form['actions2'] = array(

@@ -1,4 +1,4 @@
-snb_user.dashboard:
+snb_dashboard.dashboard:
   path: '/dashboard'
   defaults:
     _form: '\Drupal\snb_dashboard\Form\IntentionForm'

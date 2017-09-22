@@ -1,0 +1,11 @@
+{% for key, item in titlesArray if key|first != '#' %}
+  <!-- <div class="item-{{ key + 1 }}">{{ item }}</div> -->
+    <a href="/ownersummery/{{ ownerUID[key] }}">
+    	<img src="{{ imagesArray[key] }}"/><br/>
+		<strong> {{ wishOwnerNameArray[key] }} </strong>
+	</a>&nbsp;&nbsp;
+	<a href="/wish/{{ nidArray[key] }} "> 
+		{{ titlesArray[key] }} 
+	</a>&nbsp;&nbsp;
+	<span>Time Remaining - {{ timeExpireArray[key] }} </span><br/>
+{% endfor %}

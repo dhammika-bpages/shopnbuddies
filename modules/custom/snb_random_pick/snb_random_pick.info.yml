@@ -1,0 +1,5 @@
+name: SnB Random Picks
+description: 'Selects various things in a random manner'
+package: Shop-n-buddies
+type: module
+core: 8.x
